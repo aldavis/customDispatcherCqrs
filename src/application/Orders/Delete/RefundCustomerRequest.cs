@@ -2,9 +2,9 @@
 
 namespace application.Orders.Delete
 {
-    public class DeleteOrderRequest:IRequest
+    public class RefundCustomerRequest : IRequest
     {
-        public DeleteOrderRequest(int orderId)
+        public RefundCustomerRequest(int orderId)
         {
             OrderId = orderId;
         }
