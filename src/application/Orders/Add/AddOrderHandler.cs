@@ -1,29 +1,28 @@
 ﻿using System;
-using application.infrastructure;
+using System.Linq;
+using application.Infrastructure.Persistence;
+using application.Infrastructure.Request;
 using domain.Model;
 
 namespace application.Orders.Add
 {
     public class AddOrderHandler:RequestHandler,IRequestHandler<AddOrderRequest,AddOrderResult>
     {
+        private readonly IEntityFrameworkContext _context;
+
+        public AddOrderHandler(IEntityFrameworkContext context)
+        {
+            _context = context;
+        }
+
         public AddOrderResult Execute(AddOrderRequest request)
         {
             var result = new AddOrderResult();
 
-            //get the customer
-            var customer = new Customer {AllowedDiscountAmount = 50};
+            var customer = _context.Customers.Find(request.CustomerId);
+            var product = _context.Products.First(x => x.PartNumber == request.PartNumber);
 
-            //get the product
-            var product = new Product
-            {
-                PartNumber = request.PartNumber,
-                InventoryReorderThreshold = 10,
-                CurrentInventoryCount = 20,
-                OnOrderCount = 100,
-                Price = new decimal(253.25)
-            };
 
-            //check if the order can be fulfilled or back ordered
             if (product.Available(request.Quantity) || product.CanFulfillBackOrder(request.Quantity))
             {
                 result.ExpectedShipDate = DateTime.Now.AddDays(15);
@@ -33,6 +32,15 @@ namespace application.Orders.Add
                 result.ExpectedShipDate = DateTime.Now.AddDays(60);
             }
 
+
+            _context.Orders.Add(new Order
+            {
+                Customer = customer,
+                Product = product,
+                Quantity = request.Quantity
+            });
+
+            _context.SaveChanges();
 
             return result;
         }

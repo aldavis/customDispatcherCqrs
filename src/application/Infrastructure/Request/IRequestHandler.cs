@@ -1,4 +1,4 @@
-﻿namespace application.infrastructure
+﻿namespace application.Infrastructure.Request
 {
 	public interface IRequestHandler<in TParameter,out TResult> where TParameter : IRequest where TResult:IRequestResult
 	{

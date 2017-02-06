@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Autofac;
 using FluentValidation;
 
-namespace application.infrastructure
+namespace application.Infrastructure.Request
 {
 	public class RequestDispatcher:IRequestDispatcher
 	{

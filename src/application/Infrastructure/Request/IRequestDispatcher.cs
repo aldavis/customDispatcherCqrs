@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace application.infrastructure
+namespace application.Infrastructure.Request
 {
 	public interface IRequestDispatcher
 	{

@@ -1,17 +1,17 @@
-﻿using application.infrastructure;
+﻿using application.Infrastructure.Request;
 
 namespace application.Orders.Add
 {
     public class AddOrderRequest :IRequest
     {
-        public AddOrderRequest(string customerNumber, string partNumber,int quantity)
+        public AddOrderRequest(int customerId, string partNumber,int quantity)
         {
-            CustomerNumber = customerNumber;
+            CustomerId = customerId;
             PartNumber = partNumber;
             Quantity = quantity;
         }
 
-        public string CustomerNumber { get; }
+        public int CustomerId { get; }
         public string PartNumber { get; }
         public int Quantity { get; }
 

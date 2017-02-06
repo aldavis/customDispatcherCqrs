@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace application.infrastructure
+namespace application.Infrastructure.Request
 {
     public struct Unit : IEquatable<Unit>, IComparable<Unit>, IComparable, IRequestResult
     {

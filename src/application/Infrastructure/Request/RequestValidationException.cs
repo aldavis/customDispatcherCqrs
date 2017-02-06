@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace application.infrastructure
+namespace application.Infrastructure.Request
 {
     public class RequestValidationException:Exception
     {

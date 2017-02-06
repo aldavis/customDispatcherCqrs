@@ -1,4 +1,4 @@
-﻿namespace application.infrastructure
+﻿namespace application.Infrastructure.Request
 {
     public interface IRequestResult
     {
