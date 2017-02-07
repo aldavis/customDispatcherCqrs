@@ -6,9 +6,29 @@ using Dapper;
 
 namespace application.Orders.Reporting
 {
+    public class TotalsByCustomerRequest : IRequest
+    {
+        public TotalsByCustomerRequest(int customerId)
+        {
+            CustomerId = customerId;
+        }
+
+        public int CustomerId { get; }
+
+    }
+
+    public class TotalsByCustomerResult : IRequestResult
+    {
+        public int TotalUnits { get; set; }
+
+        public string CustomerName { get; set; }
+
+        public string TotalSales { get; set; }
+
+    }
+
     public class TotalsByCustomerHandler:RequestHandler,IRequestHandler<TotalsByCustomerRequest,TotalsByCustomerResult>
     {
-
         public TotalsByCustomerResult Execute(TotalsByCustomerRequest request)
         {
             var result = new TotalsByCustomerResult();

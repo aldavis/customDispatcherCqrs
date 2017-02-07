@@ -2,6 +2,22 @@
 
 namespace application.Orders.Delete
 {
+    public class DeleteOrderRequest : IRequest
+    {
+        public DeleteOrderRequest(int orderId)
+        {
+            OrderId = orderId;
+        }
+
+        public int OrderId { get; }
+    }
+
+    public class DeleteOrderResult : IRequestResult
+    {
+        public string ConfirmationNumber { get; set; }
+
+    }
+
     public class DeleteOrderHandler:RequestHandler,IRequestHandler<DeleteOrderRequest,DeleteOrderResult>
     {
         readonly IRequestDispatcher _dispatcher;
