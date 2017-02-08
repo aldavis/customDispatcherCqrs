@@ -23,18 +23,29 @@ namespace application.Infrastructure.Request
 
 	    public virtual TResult Dispatch<TParameter,TResult>(TParameter request) where TParameter : IRequest where TResult:IRequestResult
 	    {
-
 	        var handler = _container.Resolve<IRequestHandler<TParameter, TResult>>();
 
 	        var validator = _container.ResolveOptional<IValidator<TParameter>>();
 
-	        if (validator == null) return handler.Execute(request);
+	        var preprocessor = _container.ResolveOptional<IRequestPreprocessor<TParameter>>();
+
+	        if (validator == null)
+	        {
+	            preprocessor?.Execute(request);
+
+	            return handler.Execute(request);
+	        }
 
 	        var validationResult = validator.Validate(request);
 
-            if(validationResult.IsValid)return handler.Execute(request);
+	        if (validationResult.IsValid)
+	        {
+	            preprocessor?.Execute(request);
 
-            var validationErrorMessage = new StringBuilder();
+	            return handler.Execute(request);
+	        }
+
+	        var validationErrorMessage = new StringBuilder();
 
 	        foreach (var failure in validationResult.Errors)
 	        {
@@ -42,7 +53,7 @@ namespace application.Infrastructure.Request
 	        }
 
 	        throw new RequestValidationException(validationErrorMessage.ToString());
-        }
+	    }
 
         public async Task<TResult> DispatchAsync<TParameter, TResult>(TParameter request) where TParameter : IRequest where TResult : IRequestResult
         {

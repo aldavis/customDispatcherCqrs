@@ -68,6 +68,7 @@
     <Compile Include="Infrastructure\Request\IRequest.cs" />
     <Compile Include="Infrastructure\Request\IRequestDispatcher.cs" />
     <Compile Include="Infrastructure\Request\IRequestHandler.cs" />
+    <Compile Include="Infrastructure\Request\IRequestPreprocessor.cs" />
     <Compile Include="Infrastructure\Request\IRequestResult.cs" />
     <Compile Include="Infrastructure\Request\IRequestValidation.cs" />
     <Compile Include="Infrastructure\Request\RequestDispatcher.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Orders\Delete\CancelOrderShipping.cs" />
     <Compile Include="Orders\Delete\DeleteOrder.cs" />
     <Compile Include="Orders\Reporting\TotalsByCustomer.cs" />
+    <Compile Include="Products\AddProduct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
